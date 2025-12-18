@@ -1,13 +1,14 @@
 .PHONY: dist test install clean twine auto-completion
 
 install:
-	pip3 install -e .
+	uv venv --seed
+	uv tool install -e .
 uninstall:
-	pip3 uninstall -e .
+	uv tool uninstall gita
 test:
-	pytest tests --cov=./gita $(TEST_ARGS) -n=auto -vv
+	uv run pytest tests --cov=./gita $(TEST_ARGS) -n=auto -vv
 dist:
-	python3 setup.py sdist
+	uv run setup.py sdist
 twine:
 	twine upload dist/*
 clean:
